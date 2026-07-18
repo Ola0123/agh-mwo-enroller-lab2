@@ -23,8 +23,11 @@ public class MeetingRestController {
 	ParticipantService participantService;
 
 	@RequestMapping(value = "", method = RequestMethod.GET)
-	public ResponseEntity<?> getMeetings() {
-		Collection<Meeting> meetings = meetingService.getAll();
+	public ResponseEntity<?> getMeetings(
+			@RequestParam(value = "sortBy", defaultValue = "") String sortBy,
+			@RequestParam(value = "sortOrder", defaultValue = "") String sortOrder,
+			@RequestParam(value = "key", defaultValue = "") String key) {
+		Collection<Meeting> meetings = meetingService.getAll(sortBy, sortOrder, key);
 		return new ResponseEntity<Collection<Meeting>>(meetings, HttpStatus.OK);
 	}
 
